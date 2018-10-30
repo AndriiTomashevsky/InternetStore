@@ -1,0 +1,67 @@
+﻿@model IEnumerable<CartLine>
+
+@{
+	ViewBag.Title = "Cart/Index";
+}
+
+
+<style>
+	.validation-summary-errors > ul > li {
+		list-style: none;
+		color: red;
+	}
+</style>
+
+<table class="table">
+	<thead class="thead-inverese">
+		<tr>
+			<th>Quantity</th>
+			<th>Item</th>
+			<th class="text-right">Price</th>
+			<th class="text-right">SubTotal</th>
+			<th class="text-right">Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td class="text-center">@item.Quantity</td>
+				<td>@item.Product.Name</td>
+				<td class="text-right">@item.Product.Price.ToString("c")</td>
+				<td class="text-right">@item.TotalValue.ToString("c")</td>
+				<td class="text-right">
+					<form asp-action="Remove" asp-controller="Cart" method="post">
+						<input type="hidden" name="productId" value=@item.Product.ProductId />
+						<input type="hidden" name="returnUrl" value=@ViewBag.ReturnUrl />
+						<input class="btn btn-sm btn-danger" type="submit" name="Submit" value="Remove" />
+					</form>
+				</td>
+			</tr>
+		}
+		<tr>
+			<td colspan="5">
+				<div class="text-danger text-center" asp-validation-summary="All"></div>
+				@if (TempData["emptyCartMessage"] != null)
+				{<div class="alert alert-danger mt-1 text-center">@TempData["emptyCartMessage"]</div>}
+
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td class="text-right">Total:</td>
+			<td class="text-right">@ViewBag.Total.ToString("c")</td>
+		</tr>
+		<tr>
+			<td colspan="5" class="text-center">
+				<form action="/" method="post">
+					<div class="cart">
+						<a class="btn btn-default" href=@ViewBag.ReturnUrl>Continue shopping</a>
+						<a class="btn btn-default" asp-action="Checkout" asp-route-returnUrl=@ViewBag.ReturnUrl asp-controller="Order">Checkout</a>
+					</div>
+				</form>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,4 @@
+﻿@model Cart
+
+Items: @Model.Lines.Sum(item => item.Quantity)
+Total: @Model.Lines.Sum(item => item.Quantity * item.Product.Price).ToString("c")

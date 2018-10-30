@@ -1,0 +1,63 @@
+﻿@model IEnumerable<AppRole>
+
+@{
+	ViewData["Title"] = "Roles";
+	Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<!-- MODAL TRIGGER -->
+<a href="#" class="col-sm-3 btn  bg-role my-4 text-dark" data-toggle="modal" data-target="#addRoleModal"><i class="fa fa-plus"></i> Add Role</a>
+<!-- MODAL -->
+@await Component.InvokeAsync(nameof(UpdateRole), new { modalId = "addRoleModal" })
+
+<div class="card">
+	<div class="col-md-6 m-auto">
+		
+		<div asp-validation-summary="All" class="text-danger"></div>
+
+		@if (TempData["Message"] != null)
+		{
+			<div class="text-success">@TempData["Message"]</div>
+		}
+	</div>
+	@if (Model.Count() == 0)
+	{
+		<div class="col-sm-3 text-center mt-2">No Roles</div>
+	}
+	else
+	{
+		int i = 0;
+
+		<table class="table table-striped">
+			<thead class="thead-inverse">
+				<tr>
+					<th>#</th>
+					<th>Name</th>
+					<th>Users</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			@foreach (var item in Model)
+			{
+			<tr>
+				<td>@(++i)</td>
+				<td>@item.Name</td>
+				<td role-id="@item.Id"></td>
+				<td>
+					<form class="" asp-action="Delete" method="post">
+						<a class="btn btn-secondary" href="#" data-toggle="modal" data-target="@($"#editRoleModal-{item.Id}")">
+							<i class="fa fa-angle-double-right"></i>
+							Edit
+						</a>
+						<input type="hidden" name="roleId" value="@item.Id" />
+						<button class="btn btn-outline-secondary" type="submit">Delete</button>
+					</form>
+					<!--MODAL-->
+					@await Component.InvokeAsync(nameof(UpdateRole), new { appRole = item, modalId = $"editRoleModal-{item.Id}" })
+				</td>
+			</tr>
+			}
+		</table>
+	}
+</div>
+

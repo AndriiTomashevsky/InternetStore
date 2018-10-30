@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>@ViewBag.Title</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<link href="~/lib/bootstrap/4.0.0-beta/css/font-awesome.min.css" rel="stylesheet" />
+	<link href="~/lib/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" />
+	<link href="~/lib/bootstrap/4.0.0-beta/css/style.css" rel="stylesheet" />
+	<style>
+		.input-validation-error {
+			border-color: red;
+			background-color: #fee;
+		}
+
+		.form-control.valid {
+			border-color: #28a745
+		}
+
+		#CategoryId, #RoleName, #RoleId {
+			height: calc(2.25rem + 2px);
+		}
+	</style>
+</head>
+<body>
+	<!-- NAVBAR WITH RESPONSIVE TOGGLE -->
+	<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+		<div class="container">
+			<a style="color:rgba(255,255,255,.5);" class="navbar-brand brand-link" asp-action="List" asp-controller="Product">Fans&AccessoriesStore</a>
+			<button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link @(ViewBag.IsOrder??false?"active":null)" asp-action="List" asp-controller="Order">Orders</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link @(ViewBag.IsCategory??false?"active":null)" asp-action="Index" asp-controller="Category">Categories</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link @(ViewBag.IsProduct??false?"active":null)" asp-action="Index" asp-controller="Product">Products</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link @(ViewBag.IsAdmin??false?"active":null)" asp-action="Index" asp-controller="Admin">Users</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link @(ViewBag.IsRole??false?"active":null)" asp-action="Index" asp-controller="RoleAdmin">Roles</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item dropdown mr-3">
+						<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Welcome Admin</a>
+						<div class="dropdown-menu">
+							<a href="#" class="dropdown-item"><i class="fa fa-id-card"></i> Profile</a>
+							<a href="#" class="dropdown-item"><i class="fa fa-gear"></i> Settings</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" asp-route-returnUrl="@ViewBag.ReturnUrl" asp-action="Logout" asp-controller="Account"><i class="fa fa-user-times"></i> Logout</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	@await Component.InvokeAsync(nameof(Header), new { headerClass = "py-2" });
+
+	<section id="" class="">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="clearfix">
+						<div class="col-md-5 px-0 py-4 bg-light float-right">
+							<div class="input-group">
+								<input type="text" class="form-control" placeholder="Search" />
+								<button bs-button-color class="btn">Search</button>
+							</div>
+						</div>
+						@RenderBody()
+						<nav class="ml-4 mt-4 ">
+							<ul class="pagination ">
+								<li class="page-item disabled"><a href="#" class="page-link">Previous</a></li>
+								<li class="page-item active"><a href="#" class="page-link">1</a></li>
+								<li class="page-item disabled"><a href="#" class="page-link">Next</a></li>
+							</ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer id="main-footer" class="bg-dark text-white mt-5 p-5">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<p class="lead text-center">Copyright &copy; 2018 Fans&AccessoriesStore</p>
+				</div>
+			</div>
+
+		</div>
+
+	</footer>
+	<script src="~/lib/bootstrap/4.0.0-beta/js/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/4.0.0-beta/js/popper.min.js"></script>
+	<script src="~/lib/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+</body>
+</html>

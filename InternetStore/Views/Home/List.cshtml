@@ -1,0 +1,39 @@
+﻿@model ProductsListViewModel
+
+@{
+	ViewBag.Title = "List";
+}
+
+<!-- Tab panes -->
+<div class="jumbotron tab-pane">
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="home">
+			<div class="tab-text">
+				<h2>@Model.CurrentCategory</h2>
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+				<a href="#" class="btn btn-default">Read More</a>
+			</div>
+			<img class="slide-img" src="~/lib/img/product1.jpg" alt="Alternate Text" />
+		</div>
+	</div>
+</div>
+<div class="row">
+	<sort-link property="@Model.SortingInfo.NameSort" view-model="@Model"></sort-link>
+	<sort-link property="@Model.SortingInfo.PriceSort" view-model="@Model"></sort-link>
+</div>
+<!-- Products Grid -->
+<section id="products">
+	<div class="row">
+		@foreach (var item in Model.Products)
+		{
+			@Html.Partial("ProductSummary", item)
+		}
+	</div>
+
+	<nav page-arias-enabled="true" page-model="@Model.PagingInfo" page-action="List" class="text-center"
+		 page-url-category="@Model.CurrentCategory" page-previous="&laquo;" page-next="&raquo;" page-classes-enabled="false"
+		 page-url-sortState="@Model.SortingInfo.CurrentSortState" page-url-search="@Model.Search" class-unordered-list="pagination"
+		 aria-label="Page navigation">
+	</nav>
+
+</section><!--/. Product Grid -->

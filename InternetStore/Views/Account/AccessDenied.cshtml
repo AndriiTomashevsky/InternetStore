@@ -1,0 +1,33 @@
+﻿@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html style="height:100%">
+<head>
+	<title>Access Denied</title>
+	<link href="~/lib/bootstrap/4.0.0-beta/css/bootstrap.css" rel="stylesheet" />
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+	<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+	<style>
+		.input-validation-error {
+			border-color: red;
+			background-color: #fee;
+		}
+
+		.form-control.valid {
+			border-color: #28a745
+		}
+	</style>
+
+</head>
+<body class="row m-1 p-1" style="height:100%; background-color:#dcdcdc">
+	<div class="card col-lg-3 align-self-center m-auto px-0">
+		<div class="bg-danger m-1 p-1 text-white text-center"><h4>Access Denied</h4></div>
+		<div class="justify-content-end ml-auto">
+			<a asp-action="List" asp-controller="Home" class="btn btn-primary mr-1">OK</a>
+		</div>
+	</div>
+</body>
+</html>

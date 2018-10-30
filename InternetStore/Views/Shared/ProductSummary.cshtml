@@ -1,0 +1,36 @@
+﻿@model Product
+
+<div class="col-md-3">
+	<div class="thumbnail">
+		<div class="center-block" style="width:130px;height:130px">
+			@if (Model.ImageData != null)
+			{
+				<img src="@Url.Action("GetImage","Home",new { productId=Model.ProductId})" alt="Alternate Text" />
+			}
+		</div>
+		<div class="caption">
+			<h4 class="pull-right">@Model.Price.ToString("c")</h4>
+			<h4><a href="#">@Model.Name</a></h4>
+			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+		</div>
+		<div>
+			<div class="pull-right">
+				<form asp-action="AddToCart" asp-controller="Cart" method="post">
+					<input type="hidden" name="ProductId" value=@Model.ProductId />
+					<input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.Path()" />
+					<input class="btn btn-success btn" type="submit" name="Submit" value="Add To Cart" />
+				</form>
+			</div>
+			<p>
+				<span>Power: <b>@string.Format($"{Model.Power}")</b> W</span><br />
+				<span>Airflow: <b>@Model.Airflow</b> m<sup>3</sup>/h</span>
+			</p>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+

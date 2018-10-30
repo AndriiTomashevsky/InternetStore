@@ -1,0 +1,30 @@
+﻿@model AppRole
+<!-- MODAL -->
+<div class="modal" id="@ViewBag.ModalId">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-role">
+				<h5 class="modal-title">@(Model.Name == null ? "Add role" : "Edit role")</h5>
+				<button class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<form id="updateroleform-@Model.Id" asp-action="UpdateRole" method="post">
+					<input type="hidden" name="roleId" value="@Model.Id" />
+					<div class="form-group">
+						<label asp-for="Name">Name</label>
+						<input asp-for="Name" class="form-control" />
+						<span asp-validation-for="Name" class="text-danger"></span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-dismiss="modal">Close</button>
+				@if (Model.Name != null)
+				{
+					<button form="updateroleform-@Model.Id" class="btn btn-secondary" type="reset">Reset</button>
+				}
+				<input form="updateroleform-@Model.Id" class="btn btn-success" type="submit" value="Save Changes">
+			</div>
+		</div>
+	</div>
+</div>

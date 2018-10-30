@@ -1,0 +1,62 @@
+﻿@model Product
+
+@{
+	Layout = null;
+	ViewBag.Title = "Edit Product";
+}
+
+@*@section scripts{
+		<script src="~/lib/jquery/dist/jquery.min.js"></script>
+		<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+		<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+	}*@
+
+
+
+<form asp-action="Save" asp-controller="Admin" enctype="multipart/form-data" method="post">
+	<div asp-validation-summary="All"></div>
+
+	<input type="hidden" asp-for="@Model.ProductId" />
+
+	<label asp-for="@Model.Category">Category:</label>
+	<input asp-for="@Model.Category" value="@Model.Category" />
+	<span asp-validation-for="Category"></span>
+	<br />
+
+	<label asp-for="@Model.Name">Name:</label>
+	<input asp-for="@Model.Name" value=@Model.Name />
+	<span asp-validation-for="Name"></span><br />
+
+	<label asp-for="@Model.Description">Description:</label>
+	<input size="25" asp-for="@Model.Description" value=@Model.Description />
+	<span asp-validation-for="Description"></span><br />
+
+	<label asp-for="@Model.Power">Power:</label>
+	<input asp-for="@Model.Power" value="@Model.Power" />
+	<span asp-validation-for="Power"></span><br />
+
+	<label asp-for="@Model.Airflow">Airflow:</label>
+	<input asp-for="@Model.Airflow" value=@Model.Airflow />
+	<span asp-validation-for="Airflow"></span><br />
+
+	<label asp-for="@Model.Price">Price:</label>
+	<input asp-for="@Model.Price" value=@Model.Price />
+	<span asp-validation-for="Price"></span><br />
+
+	<label>Image</label>
+	<input type="file" name="image">
+
+	<div>
+		@if (Model.ImageData == null)
+		{
+			<div>No Image</div>
+		}
+		else
+		{
+			<img style="width:10%;height:10%" src="@Url.Action("GetImage","Product", new { productId = Model.ProductId})" asp-append-version="true" />
+		}
+	</div>
+
+	<br /><input type="submit" name="submit" value="Save" />
+	<a asp-action="Index" asp-controller="Admin">Cancel</a>
+</form>

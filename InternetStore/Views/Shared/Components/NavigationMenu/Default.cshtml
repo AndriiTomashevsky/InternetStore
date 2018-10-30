@@ -1,0 +1,9 @@
+﻿@model IQueryable<Category>
+
+@foreach (var item in Model)
+{
+	<li class=" @(item.Name == ViewBag.SelectedCategory ? "active": null)">
+		<a asp-route-page="1" asp-action="List" asp-controller="Home" asp-route-category="@item.Name">@item.Name</a>
+	</li>
+}
+

@@ -1,0 +1,68 @@
+﻿@model AppUser
+<!-- MODAL -->
+<div class="modal" id="@ViewBag.ModalId">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+				<h5 class="modal-title">Edit User</h5>
+				<button class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="modal-body">
+				<form id="updateuserform-@Model.Id" asp-action="UpdateUser" method="post">
+					<input name="userId" value="@Model.Id" class="form-control" type="hidden" />
+					<input name="email" value="@Model.Email" class="form-control" type="hidden" />
+
+					<div class="form-group">
+						<label for="Name">Name</label>
+						<input id="Name" value="@Model.UserName" class="form-control" disabled />
+					</div>
+
+					<div class="form-group">
+						<label for="Email">Email</label>
+						<input id="Email" value="@Model.Email" class="form-control" disabled />
+					</div>
+
+					<div class="form-group">
+						<label asp-for="NewEmail">New Email</label>
+						<input asp-for="NewEmail" class="form-control" />
+						<span class="text-danger" asp-validation-for="NewEmail"></span>
+					</div>
+
+					<div class="form-group">
+						<label for="Name">Role:</label>
+						<select asp-for="RoleName" class="form-control">
+							@if (Model.RoleName == null)
+							{
+								<option value="" selected>Choose a role</option>
+							}
+							@if (ViewBag.RolesCount == 0)
+							{
+								<option value="" disabled>Roles have not been added yet</option>
+							}
+
+							@foreach (AppRole item in ViewBag.Roles)
+							{
+								<option selected="@(Model.RoleName==item.Name)" value="@item.Name">
+									@item.Name
+								</option>
+							}
+						</select>
+					</div>
+
+					<div class="form-group">
+						<label asp-for="Password">Password</label>
+						<input asp-for="Password" class="form-control">
+						<span class="text-danger" asp-validation-for="Password"></span>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button form="updateuserform-@Model.Id" class="btn btn-secondary" type="reset">Reset</button>
+				<button form="updateuserform-@Model.Id" class="btn btn-success" type="submit">Save Changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+

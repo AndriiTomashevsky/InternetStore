@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Order>
+
+@{
+	Layout = "_AdminLayout";
+	ViewBag.Title = "Orders";
+}
+
+<!--for clearfix-->
+<div class="float-left"></div>
+</div>
+<!--./for clearfix-->
+
+<div class="card">
+	<table class="table table-striped">
+		<thead class="thead-inverse">
+			<tr>
+				<th>#</th>
+				<th>Name</th>
+				<th>City</th>
+				<th>Product</th>
+				<th>Quantity</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			@{ int i = 0;}
+			@foreach (var order in Model)
+			{
+				<tr>
+					<td scope="row">@(++i)</td>
+					<td>@order.Name</td>
+					<td>@order.City</td>
+
+					@foreach (var cartLine in order.Lines)
+					{
+						<td>@cartLine.Product.Name</td>
+						<td>@cartLine.Quantity</td>
+					}
+					@if (order.Shipping == false)
+					{
+						<td>
+							<form asp-action="Ship" asp-controller="Order" method="post">
+								<input type="hidden" name="orderID" value="@order.OrderId" />
+								@*<input  type="submit" name="name" value="Ship" />*@
+								<button class="btn btn-secondary" type="submit"><i class="fa fa-angle-double-right"></i> Ship</button>
+							</form>
+						</td>
+					}
+					else
+					{
+						<td> Order has shipped</td>
+					}
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+
+
+
